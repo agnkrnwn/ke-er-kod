@@ -18,6 +18,7 @@ const resetSettings = document.getElementById('resetSettings');
 const tabPendek = document.getElementById('tabPendek');
 const tabPanjang = document.getElementById('tabPanjang');
 const currentArabicFont = document.getElementById('currentArabicFont');
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
 
 async function fetchTahlilData(type) {
@@ -179,6 +180,31 @@ function init() {
     loadSettings();
     switchTab('pendek'); // Start with Tahlil Pendek by default
 }
+
+// Fungsi untuk scroll ke atas
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Event listener untuk tombol scroll to top
+if (scrollToTopBtn) {
+    scrollToTopBtn.addEventListener('click', scrollToTop);
+}
+
+// Tampilkan/sembunyikan tombol scroll to top berdasarkan posisi scroll
+window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 100) {
+        scrollToTopBtn.style.display = 'block';
+    } else {
+        scrollToTopBtn.style.display = 'none';
+    }
+});
+
+// Sembunyikan tombol saat halaman dimuat
+scrollToTopBtn.style.display = 'none';
 
 // Tambahkan event listener untuk perubahan font
 arabicFont.addEventListener('change', updateCurrentFontInfo);
