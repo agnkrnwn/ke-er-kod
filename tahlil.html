@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tahlilan App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="icon" type="image/png" sizes="192x192" href="/aseet/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/aseet/icon-512x512.png">
+    <link rel="apple-touch-icon" href="/aseet/icon-192x192.png">
+    <meta name="theme-color" content="#1f2937">
+    <meta name="description" content="Aplikasi untuk Tahlil">
+    <meta property="og:title" content="Tahlil App">
+    <meta property="og:description" content="Aplikasi untuk Tahlil">
+    <meta property="og:image" content="/aseet/icon-512x512.png">
+
     <link rel="stylesheet" href="./aseet/tahlil.css">
+    <link rel="manifest" href="/manifest.json">
     <script>
-        tailwind.config = {
-            darkMode: 'class',
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-200">
     <div class="container mx-auto px-4 py-8 mb-16">
