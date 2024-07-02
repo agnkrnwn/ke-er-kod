@@ -30,6 +30,25 @@ const fontExample = document.getElementById('font-example');
 
 let bookmarks = JSON.parse(localStorage.getItem('quran-bookmarks')) || [];
 
+document.addEventListener('DOMContentLoaded', function() {
+    const homeBtn = document.getElementById('home-btn');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', function() {
+            window.location.href = 'tahlil.html';
+        });
+    }
+});
+
+// const tahlil = document.getElementById('tahlil');
+// document.addEventListener('DOMContentLoaded', function() {
+//     const tahlil = document.getElementById('tahlil');
+//     if (tahlil) {
+//         tahlil.addEventListener('click', function() {
+//             window.location.href = 'tahlil.html';
+//         });
+//     }
+// });
+
 async function fetchSurahs() {
     const response = await fetch('https://api.alquran.cloud/v1/surah');
     const data = await response.json();

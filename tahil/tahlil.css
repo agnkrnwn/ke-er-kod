@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&family=Roboto&family=Scheherazade&family=Lateef&family=Almarai:wght@300;400;700&display=swap');
+
+
+@font-face {
+    font-family: 'UthmanicHafs';
+    src: url('fonts/UthmanicHafs.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'font1';
+    src: url('fonts/HQPB7.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'font2';
+    src: url('fonts/MSHQ.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pfont3';
+    src: url('fonts/PageD1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'font4';
+    src: url('fonts/PageD2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'font5';
+    src: url('fonts/PageQ1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'font6';
+    src: url('fonts/PageQ2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'font7';
+    src: url('fonts/PageQ3.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --arabic-font: 'UthmanicHafs', Arial, sans-serif;
+}
+.arabic { font-family: var(--arabic-font); }
+
+select option {
+    background-color: white;
+    color: black;
+}
+
+.dark select option {
+    background-color: #374151; /* dark gray */
+    color: white;
+}
