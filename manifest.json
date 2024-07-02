@@ -1,0 +1,21 @@
+{
+    "name": "Baca Al-Quran",
+    "short_name": "Al-Quran WebApp",
+    "description": "Aplikasi untuk membaca Al-Quran",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#3b82f6",
+    "theme_color": "#3b82f6",
+    "icons": [
+      {
+        "src": "/asset/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/asset/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
