@@ -16,6 +16,11 @@ const urlsToCache = [
   "/fonts/PageQ2.TTf",
   "/fonts/PageQ3.TTf",
   "/fonts/UthmanicHafs.otf",
+  "/tahlil.html",
+  "/aseet/tahlil.css",
+  "/aseet/tahlil.js",
+  "/aseet/data/tahlilpanjang.json",
+  "/aseet/data/tahlilpendek.json",
 ];
 
 self.addEventListener("install", (event) => {
