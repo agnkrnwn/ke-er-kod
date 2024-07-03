@@ -27,6 +27,14 @@
             });
         }
     </script>
+    <style>
+        @font-face {
+        font-family: 'KFGQPCUthmanic';
+        src: url('fonts/KFGQPCUthmanic.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 pb-16">
     <div id="main-content" class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-16">
@@ -83,6 +91,7 @@
                         <option value="Noto Naskh Arabic">Noto Naskh Arabic</option>
                         <option value="Amiri">Amiri</option>
                         <option value="'Lateef', cursive">Lateef</option>
+                        <option value="KFGQPCUthmanic">KFGQPC</option>
                         <option value="font1">HQPB7</option>
                         <option value="font2">MSHQ</option>
                         <option value="font3">PageD1</option>
@@ -120,8 +129,10 @@
                 <input type="checkbox" id="dark-mode-toggle" class="toggle-checkbox">
             </div>
             <div class="mt-4">
-                <h3 class="font-bold mb-2 text-center">Contoh Font:</h3>
-                <p id="font-example" class="text-2xl text-right mb-4" style="font-family: 'Scheherazade New';">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+                <h3 class="font-bold mb-2 text-center"></h3>
+                <p id="font-example" class="text-2xl text-right mb-2" >بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p> 
+                <p id="latin-font-example" class="text-2xl text-right mb-4" >بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p> 
+                <!-- style="font-family: 'Scheherazade New';" -->
             </div>
             <div class="mt-4 flex justify-between bg-white dark:bg-gray-800 py-2 rounded-b-lg">
                 <button id="reset-settings" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">Reset Pengaturan</button>

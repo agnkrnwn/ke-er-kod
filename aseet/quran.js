@@ -27,6 +27,7 @@ const bottomBar = document.getElementById('bottom-bar');
 const closeBottomBar = document.getElementById('close-bottom-bar');
 const resetSettings = document.getElementById('reset-settings');
 const fontExample = document.getElementById('font-example');
+const latinFontExample = document.getElementById('latin-font-example');
 
 let bookmarks = JSON.parse(localStorage.getItem('quran-bookmarks')) || [];
 
@@ -39,15 +40,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// const tahlil = document.getElementById('tahlil');
-// document.addEventListener('DOMContentLoaded', function() {
-//     const tahlil = document.getElementById('tahlil');
-//     if (tahlil) {
-//         tahlil.addEventListener('click', function() {
-//             window.location.href = 'tahlil.html';
-//         });
-//     }
-// });
+// Fungsi untuk menyimpan pengaturan ke localStorage
+function saveSettings() {
+    localStorage.setItem('latinFontSize', fontSizeSlider.value);
+    localStorage.setItem('arabicFontSize', arabicFontSize.value);
+    localStorage.setItem('arabicFont', arabicFont.value);
+    localStorage.setItem('showArabic', showArabic.checked);
+    localStorage.setItem('showTranslation', showTranslation.checked);
+    localStorage.setItem('showTransliteration', showTransliteration.checked);
+    localStorage.setItem('darkMode', darkModeToggle.checked ? 'enabled' : 'disabled');
+}
+
+// Fungsi untuk memuat pengaturan dari localStorage
+function loadSettings() {
+    fontSizeSlider.value = localStorage.getItem('latinFontSize') || 16;
+    arabicFontSize.value = localStorage.getItem('arabicFontSize') || 24;
+    arabicFont.value = localStorage.getItem('arabicFont') || 'UthmanicHafs';
+    showArabic.checked = localStorage.getItem('showArabic') !== 'false';
+    showTranslation.checked = localStorage.getItem('showTranslation') !== 'false';
+    showTransliteration.checked = localStorage.getItem('showTransliteration') !== 'false';
+    darkModeToggle.checked = localStorage.getItem('darkMode') === 'enabled';
+
+    updateLatinFontSize(fontSizeSlider.value);
+    updateArabicFontSize(arabicFontSize.value);
+    updateArabicFont(arabicFont.value);
+    updateTextVisibility();
+    updateDarkMode();
+}
+
+// Fungsi untuk memperbarui mode gelap
+function updateDarkMode() {
+    if (darkModeToggle.checked) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+}
+
 
 async function fetchSurahs() {
     const response = await fetch('https://api.alquran.cloud/v1/surah');
@@ -359,29 +388,47 @@ scrollTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+//Event listeners untuk pengaturan
 fontSizeSlider.addEventListener('input', (e) => {
-    const size = e.target.value;
-    updateLatinFontSize(size);
-    localStorage.setItem('latinFontSize', size);
+    updateLatinFontSize(e.target.value);
+    saveSettings();
 });
+
 arabicFontSize.addEventListener('input', (e) => {
-    document.querySelectorAll('.arabic-text').forEach(el => {
-        el.style.fontSize = `${e.target.value}px`;
-    });
-    fontExample.style.fontSize = `${e.target.value}px`;
+    updateArabicFontSize(e.target.value);
+    saveSettings();
 });
 
 arabicFont.addEventListener('change', (e) => {
-    document.querySelectorAll('.arabic-text').forEach(el => {
-        el.style.fontFamily = e.target.value;
-    });
-    fontExample.style.fontFamily = e.target.value;
+    updateArabicFont(e.target.value);
+    saveSettings();
+});
+
+showArabic.addEventListener('change', () => {
+    updateTextVisibility();
+    saveSettings();
+});
+
+showTranslation.addEventListener('change', () => {
+    updateTextVisibility();
+    saveSettings();
+});
+
+showTransliteration.addEventListener('change', () => {
+    updateTextVisibility();
+    saveSettings();
+});
+
+darkModeToggle.addEventListener('change', () => {
+    updateDarkMode();
+    saveSettings();
 });
 
 showArabic.addEventListener('change', updateTextVisibility);
 showTranslation.addEventListener('change', updateTextVisibility);
 showTransliteration.addEventListener('change', updateTextVisibility);
 
+// Fungsi untuk memperbarui visibilitas teks
 function updateTextVisibility() {
     document.querySelectorAll('.arabic-text').forEach(el => {
         el.style.display = showArabic.checked ? 'block' : 'none';
@@ -404,14 +451,32 @@ darkModeToggle.addEventListener('change', () => {
     }
 });
 
-function updateLatinFontSize(size) {
-    document.documentElement.style.setProperty('--latin-font-size', `${size}px`);
-    document.querySelectorAll('.transliteration-text').forEach(el => {
+// Fungsi untuk memperbarui ukuran font Arab
+function updateArabicFontSize(size) {
+    document.querySelectorAll('.arabic-text').forEach(el => {
         el.style.fontSize = `${size}px`;
     });
-    document.querySelectorAll('.translation-text').forEach(el => {
-        el.style.fontSize = `${parseInt(size) - 2}px`;
+    fontExample.style.fontSize = `${size}px`;
+    fontExample.textContent = `Arabic Font Size: ${size}px`;
+}
+
+// Fungsi untuk memperbarui font Arab
+function updateArabicFont(font) {
+    document.querySelectorAll('.arabic-text').forEach(el => {
+        el.style.fontFamily = font;
     });
+    fontExample.style.fontFamily = font;
+    fontExample.textContent = `بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْ : ${font}`;
+}
+
+// Fungsi untuk memperbarui ukuran font Latin
+function updateLatinFontSize(size) {
+    document.documentElement.style.setProperty('--latin-font-size', `${size}px`);
+    document.querySelectorAll('.transliteration-text, .translation-text').forEach(el => {
+        el.style.fontSize = `${size}px`;
+    });
+    latinFontExample.style.fontSize = `${size}px`;
+    latinFontExample.textContent = `Latin Font Size: ${size}px`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -460,6 +525,10 @@ resetSettings.addEventListener('click', () => {
     localStorage.removeItem('arabicFont');
     localStorage.removeItem('darkMode');
 
+    updateDarkMode();
+
+    saveSettings();
+
     // Update UI to reflect changes
     updateUIFromSettings();
 });
@@ -482,6 +551,8 @@ function updateUIFromSettings() {
     // Update text visibility
     updateTextVisibility();
 }
+
+document.addEventListener('DOMContentLoaded', loadSettings);
 
 function displayBookmarks() {
     bookmarkList.innerHTML = '';
