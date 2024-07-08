@@ -157,7 +157,7 @@
 
         async function fetchTahlilData(type) {
             try {
-                const response = await fetch(`/asset/data/tahlil${type}.json`);
+                const response = await fetch(`/aseet/data/tahlil${type}.json`);
                 tahlilData = await response.json();
                 renderTahlilContent();
             } catch (error) {
