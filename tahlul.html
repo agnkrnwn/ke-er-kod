@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tahlilan App</title>
+
+    <link rel="icon" type="image/png" sizes="192x192" href="/aseet/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/aseet/icon-512x512.png">
+    <link rel="apple-touch-icon" href="/aseet/icon-192x192.png">
+    <meta name="theme-color" content="#1f2937">
+    <meta name="description" content="Aplikasi untuk Tahlil">
+    <meta property="og:title" content="Tahlil App">
+    <meta property="og:description" content="Aplikasi untuk Tahlil">
+    <meta property="og:image" content="/aseet/icon-512x512.png">
+
+    <link rel="stylesheet" href="./aseet/tahlil.css">
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .then((reg) => console.log("Service worker registered.", reg))
+                    .catch((err) => console.log("Service worker registration failed:", err));
+            });
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white transition-colors duration-200">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-white dark:bg-gray-800 shadow-md">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">Tahlilan</h1>
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="text-yellow-600 dark:text-yellow-400 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    <button id="settingsBtn" class="text-gray-600 dark:text-gray-400 focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                <div class="flex mb-4">
+                    <button id="tabPendek" class="flex-1 px-4 py-2 bg-blue-500 text-white rounded-l-lg focus:outline-none">Tahlil Pendek</button>
+                    <button id="tabPanjang" class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-r-lg focus:outline-none">Tahlil Panjang</button>
+                </div>
+                <div id="tahlilContent" class="space-y-6"></div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white dark:bg-gray-800 shadow-md">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <a href="index.html" class="text-green-600 dark:text-green-400 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                </a>
+                <button id="scrollToTopBtn" class="text-purple-600 dark:text-purple-400 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    </svg>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-80 max-w-full mx-4">
+            <h2 class="text-xl font-semibold mb-4">Settings</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Arabic Font Size</label>
+                    <input type="range" id="arabicFontSize" min="16" max="32" value="24" class="w-full">
+                    <span id="arabicFontSizeValue" class="text-sm block mt-1"></span>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Arabic Font</label>
+                    <select id="arabicFont" class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option value="UthmanicHafs">UthmanicHafs</option>
+                        <option value="Scheherazade New">Scheherazade New</option>
+                        <option value="Noto Naskh Arabic">Noto Naskh Arabic</option>
+                        <option value="Amiri">Amiri</option>
+                        <option value="'Lateef', cursive">Lateef</option>
+                        <option value="font1">HQPB7</option>
+                        <option value="font2">MSHQ</option>
+                        <option value="font3">PageD1</option>
+                        <option value="font4">PageD2</option>
+                        <option value="font5">PageQ1</option>
+                        <option value="font6">PageQ2</option>
+                        <option value="font7">PageQ3</option>
+                    </select>
+                    <span id="currentArabicFont" class="text-sm block mt-1"></span>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Show/Hide Sections</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="showTitle" checked class="form-checkbox">
+                            <span class="ml-2">Title</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="showArabic" checked class="form-checkbox">
+                            <span class="ml-2">Arabic</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="showLatin" checked class="form-checkbox">
+                            <span class="ml-2">Latin</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="showTranslation" checked class="form-checkbox">
+                            <span class="ml-2">Translation</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button id="resetSettings" class="mt-6 w-full bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400 focus:outline-none">Reset to Default</button>
+            <button id="closeSettings" class="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 focus:outline-none">Close</button>
+        </div>
+    </div>
+
+    <script src="./aseet/tahlil.js"></script>
+</body>
+</html>
